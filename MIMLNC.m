@@ -7,14 +7,14 @@ end
 
 function MIML_NC_Core(ds_name,gamma)
 fullfilename = strcat('./Dataset/',ds_name,'/allclasses/newlabels.mat');
-EMiterations = 50;
+EMiterations = 50; % Change this accordingly
 load(fullfilename);clear Data;
 kernel = 'feature';
 [K,X] = PreprocessingX(X); 
 
 w0 = LoadExistFile(X,Y);
 
-for cross = 1:5
+for cross = 1:10
     [Y_test, X_test, y_test, Y_train, X_train, ~] = TrainandTest(Y,X,y,10,cross);
     [w,~,~,~] = ExpectMaximizationMIMIL(w0,K,X_train,Y_train,EMiterations,gamma);
     [accuracy(cross)] = Predict(w,Y_test,X_test,y_test);
