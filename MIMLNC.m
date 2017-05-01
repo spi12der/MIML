@@ -7,7 +7,7 @@ end
 
 function MIML_NC_Core(ds_name,gamma)
 fullfilename = strcat('./Dataset/',ds_name,'/allclasses/newlabels.mat');
-EMiterations = 50; % Change this accordingly
+EMiterations = 20; % Change this accordingly
 load(fullfilename);clear Data;
 kernel = 'feature';
 [K,X] = PreprocessingX(X); 
@@ -20,7 +20,7 @@ for cross = 1:10
     [accuracy(cross)] = Predict(w,Y_test,X_test,y_test);
 end
 
-results = [accuracy; mean(accuracy); std(accuracy)];
+results = [accuracy mean(accuracy) std(accuracy)];
 dlmwrite(strcat(ds_name,'results.txt'),results);
 end
 
